@@ -1,0 +1,49 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@{
+    // Get the current page
+    var currentPage = Umbraco.AssignedContentItem;
+    
+    // Get properties
+    var pageTitle = currentPage.Value<string>("pagetitle");
+    var summary = currentPage.Value<string>("summary");
+    var mediaItem = Umbraco.AssignedContentItem.Value<IPublishedContent>("mainimage");
+    var mainImageUrl = mediaItem?.Url();
+    var weeklySpecial = Umbraco.AssignedContentItem.Value<string>("pizzapicker");
+        
+
+}
+
+@if (!string.IsNullOrEmpty(mainImageUrl))
+{
+    <img src="@mainImageUrl" alt="Main Image" />    
+}
+
+<h1>@pageTitle</h1>
+<div>@Html.Raw(summary)</div>
+
+<div class="colored-area">
+    <h2>This week's pizza deal (2 FOR 1) is for:<h2>
+    <h1>@weeklySpecial Pizzas</h1>
+</div>
+
+<style>
+
+body {
+     text-align: center;
+}
+
+.colored-area {
+    background-color: green;
+    width: 50%;
+    margin: auto;
+}
+    /* Custom styles defined here */
+    .custom-class {
+        font-size: 18px;
+            color: #007bff;
+    }
+
+    /* You can define more styles below */
+</style>
