@@ -11,7 +11,8 @@
     var mediaItem = Umbraco.AssignedContentItem.Value<IPublishedContent>("mainimage");
     var mainImageUrl = mediaItem?.Url();
     var weeklySpecial = Umbraco.AssignedContentItem.Value<string>("pizzapicker");
-        
+    var images = Model.Value<IEnumerable<IPublishedContent>>("pizzaImages");
+
 
 }
 
@@ -27,6 +28,20 @@
     <h2>This week's pizza deal (2 FOR 1) is for:<h2>
     <h1>@weeklySpecial Pizzas</h1>
 </div>
+
+
+<div>Here's some of our pizzas:
+</div>
+
+@if (images != null && images.Any())
+{
+    <div class="image-gallery">
+        @foreach (var image in images)
+        {
+            <img src="@image.Url()" alt="@image.Name" />
+        }
+    </div>
+}
 
 <style>
 
